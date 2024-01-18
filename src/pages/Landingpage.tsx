@@ -1,8 +1,18 @@
 import { CiSearch } from "react-icons/ci";
+import { useImageContext } from "../context/useImageContext";
 
 function Landingpage() {
+  const { fetchImages, setSearchInput, searchInput, urlToDisplay } =
+    useImageContext();
   return (
-    <div className="bg-[url('./assets/home-background.jfif')] w-full h-screen bg-no-repeat bg-cover bg-bottom  ">
+    <div
+      className="bg-[url('./assets/home-background.jfif')] w-full h-screen bg-no-repeat bg-cover   "
+      style={{
+        height: urlToDisplay.length === 0 ? "100vh" : "400px",
+        scale: urlToDisplay.length === 0 ? "" : "1",
+        backgroundPosition: urlToDisplay.length === 0 ? "bottom" : "center",
+      }}
+    >
       <div
         className="flex flex-col items-center justify-center  pt-[30px] text-white z-10 
       gap-14  "
@@ -23,7 +33,12 @@ function Landingpage() {
         </div>
         {/* first div  */}
         {/* second div  */}
-        <div className="w-[80%] ">
+        <div
+          className="w-[80%] "
+          style={{
+            display: urlToDisplay.length === 0 ? "block" : "none",
+          }}
+        >
           <h1 className="text-white text-center text-7xl font-bold leading-[88px] max-w-[841px] max-md:text-4xl max-md:leading-[55px] m-auto ">
             {" "}
             <h1>Discover over 2,000,000 free Stock Images</h1>
@@ -37,20 +52,31 @@ function Landingpage() {
             <input
               type="text"
               placeholder="Search"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
               className=" bg-transparent border-none outline-none text-white text-lg font-semibold leading-5 w-[80%] "
             />
             <div className=" ml-auto flex justify-center items-center min-h-[34px] max-w-[70px]  rounded-lg border-[2.672px] border-solid border-white px-2 ">
-              <button className="ml-auto text-white text-lg font-semibold leading-5 max-w-[32px]  text-center ">
+              <button
+                className="ml-auto text-white text-lg font-semibold leading-5 max-w-[32px]  text-center "
+                onClick={fetchImages}
+              >
                 Go!
               </button>
             </div>
           </div>
-          <div className="shadow backdrop-blur-[25.034873962402344px] bg-zinc-300 bg-opacity-10  min-h-[39px] w-[45.8%]  rounded-lg  flex items-center justify-center ">
-            <div className="text-white text-sm text-center leading-5 w-full">
-              <span className="font-bold">Trending:</span>{" "}
-              <span className="">flowers, love, forest, river</span>
+          {urlToDisplay.length === 0 ? (
+            <div className="shadow backdrop-blur-[25.034873962402344px] bg-zinc-300 bg-opacity-10  min-h-[39px] w-[45.8%]  rounded-lg  flex items-center justify-center ">
+              <div className="text-white text-sm text-center leading-5 w-full  ">
+                <span className="font-bold">Trending:</span>{" "}
+                <span className="">flowers, love, forest, river</span>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="text-white text-center text-5xl font-bold leading-[87px] ">
+              Results: {searchInput}
+            </div>
+          )}
         </div>
         {/* third div  */}
       </div>
