@@ -1,15 +1,56 @@
+import { useState } from "react";
 import { useImageContext } from "../context/useImageContext";
-import { Link } from "react-router-dom";
+import ImageDetail from "./ImageDetail";
+
+export interface ImageInterface {
+  id: number;
+  pageURL: string;
+  type: string;
+  tags: string;
+  previewURL: string;
+  previewWidth: number;
+  previewHeight: number;
+  webformatURL: string;
+  webformatWidth: number;
+  webformatHeight: number;
+  largeImageURL: string;
+  fullHDURL: string;
+  imageURL: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageSize: number;
+  views: number;
+  downloads: number;
+  likes: number;
+  comments: number;
+  user_id: number;
+  user: string;
+  userImageURL: string;
+}
 
 function Images() {
   const { urlToDisplay } = useImageContext();
+  const [selectedImage, setSelectedImage] = useState<ImageInterface | null>(
+    null
+  );
+
+  const handleSelectImage = (data: ImageInterface) => {
+    document.body.style.overflow = "hidden";
+    setSelectedImage(data);
+  };
+
+  const closeModal = () => {
+    document.body.style.overflow = "visible";
+    setSelectedImage(null);
+  };
+
   return (
-    <div className="flex flex-wrap justify-center items-start gap-14 my-6 ">
-      {urlToDisplay?.map((data, index) => {
-        const { id, webformatURL, tags } = data;
+    <div className="flex flex-wrap justify-center items-start gap-14 my-6  ">
+      {urlToDisplay?.map((data: ImageInterface, index: number) => {
+        const { webformatURL, tags } = data;
         return (
-          <Link
-            to={`/image/${id}`}
+          <div
+            onClick={() => handleSelectImage(data)}
             key={index}
             className="flex  w-[364.59px] flex-col items-start gap-3 flex-shrink-0 cursor-pointer "
           >
@@ -20,7 +61,7 @@ function Images() {
               className="w-full h-[243px] rounded-lg object-cover "
             />
             <div className="flex pr-2 items-start gap-[7px] flex-wrap ">
-              {tags.split(" ").map((tag, index) => {
+              {tags.split(",").map((tag: string, index: number) => {
                 return (
                   <div
                     key={index}
@@ -34,9 +75,12 @@ function Images() {
                 );
               })}
             </div>
-          </Link>
+          </div>
         );
       })}
+      {selectedImage && (
+        <ImageDetail selectedImage={selectedImage} closeModal={closeModal} />
+      )}
     </div>
   );
 }
