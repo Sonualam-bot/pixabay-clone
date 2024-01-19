@@ -4,7 +4,6 @@ import "./App.css";
 import SearchResults from "./pages/SearchResults";
 
 const Landingpage = lazy(() => import("./pages/Landingpage"));
-const ImageDetail = lazy(() => import("./pages/ImageDetail"));
 
 function App() {
   return (
@@ -13,7 +12,6 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Landingpage />} />
-            <Route path="/image/:imageId" element={<ImageDetail />} />
           </Routes>
 
           <SearchResults />
