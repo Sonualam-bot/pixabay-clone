@@ -20,7 +20,7 @@ function Landingpage() {
         {/* first div  */}
         <div className="w-[90%] shadow backdrop-blur-[25.034873962402344px] bg-zinc-300 bg-opacity-10 flex justify-between items-center px-5 min-h-[68px] rounded-lg ">
           <h3 className="text-white text-lg font-semibold leading-5 max-w-[91px] ">
-            Homepage
+            Pixabay-∞
           </h3>
           <div className="flex items-center justify-center gap-5 ">
             <p className="text-white text-lg font-semibold leading-5 max-w-[44px]">

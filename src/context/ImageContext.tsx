@@ -33,7 +33,6 @@ export const ImageContextProvider: React.FC<ImageComponentProp> = ({
       } else {
         const response = await fetch(url);
         const result = await response.json();
-        console.log(result);
         setUrlToDisplay(result.hits);
       }
     } catch (error) {
