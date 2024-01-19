@@ -33,10 +33,13 @@ const downloadOptions: downloadOptionsProp[] = [
   },
 ];
 
-const ImageDetail: FC<{ selectedImage: ImageInterface }> = ({
-  selectedImage,
-}) => {
-  const [checkedOption, setCheckedOption] = useState<number | null>(null);
+interface ImageDetailProps {
+  selectedImage: ImageInterface;
+  closeModal: () => void;
+}
+
+const ImageDetail: FC<ImageDetailProps> = ({ selectedImage, closeModal }) => {
+  const [checkedOption, setCheckedOption] = useState<number | null>(1);
 
   const {
     id,
@@ -78,15 +81,16 @@ const ImageDetail: FC<{ selectedImage: ImageInterface }> = ({
   };
 
   return ReactDOM.createPortal(
-    <div className=" w-[85vw] h-[680px] flex-shrink-0 rounded-lg bg-white shadow-lg absolute top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] flex flex-col gap-2 pb-4 ">
+    <div className=" w-[85vw] h-[680px] flex-shrink-0 rounded-lg bg-white shadow-lg fixed top-[50%] left-[50%] transform translate-x-[-50%] translate-y-[-50%] flex flex-col gap-2 pb-4 ">
       <div className="w-full h-[65.415px]  flex-shrink-0 rounded-t-lg rounded-b-none bg-[#F5F5F5] flex justify-between items-center px-4 ">
         <p className=" text-[#3B4043] text-[21.325px] font-medium leading-[51.447px] ">
           Preview ID: {id}{" "}
         </p>
         <img
           src={CrossIcon}
+          onClick={closeModal}
           alt="/closebtn"
-          className="w-[29.63px] h-[29.63px] flex-shrink-0  "
+          className="w-[29.63px] h-[29.63px] flex-shrink-0 cursor-pointer "
         />
       </div>
 
