@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useImageContext } from "../context/useImageContext";
 import Images, { ImageInterface } from "./Images";
 import TagCarousel from "./TagCarousel";
 
 function SearchResults() {
   const { urlToDisplay } = useImageContext();
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const imageTags = [...urlToDisplay]?.reduce(
     (acc: string[], curr: ImageInterface): string[] => {
@@ -19,10 +21,28 @@ function SearchResults() {
   const allUniqueTags = imageTags.flatMap((tag) => tag.split(", "));
   const uniqueTags = [...new Set(allUniqueTags)];
 
+  const handleTagSelect = (tag: string) => {
+    setSelectedTags((prevTags) => {
+      if (prevTags.includes(tag)) {
+        return prevTags.filter((selectedTag) => selectedTag !== tag);
+      } else {
+        return [tag];
+      }
+    });
+  };
+
+  const filteredImages = urlToDisplay?.filter((image: ImageInterface) =>
+    selectedTags.every((tag) => image.tags.includes(tag))
+  );
+
   return (
-    <div className="relative">
-      {urlToDisplay.length > 0 && <TagCarousel tags={uniqueTags} />}
-      <Images />
+    <div className="">
+      {urlToDisplay.length > 0 && (
+        <div>
+          <TagCarousel tags={uniqueTags} onTagSelect={handleTagSelect} />
+          <Images imagesToDisplay={filteredImages} />
+        </div>
+      )}
     </div>
   );
 }

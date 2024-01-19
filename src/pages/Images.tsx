@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useImageContext } from "../context/useImageContext";
+// import { useImageContext } from "../context/useImageContext";
 import ImageDetail from "./ImageDetail";
 
 export interface ImageInterface {
@@ -28,8 +28,12 @@ export interface ImageInterface {
   userImageURL: string;
 }
 
-function Images() {
-  const { urlToDisplay } = useImageContext();
+interface ImagesProps {
+  imagesToDisplay: ImageInterface[];
+}
+
+function Images({ imagesToDisplay }: ImagesProps) {
+  // const { urlToDisplay } = useImageContext();
   const [selectedImage, setSelectedImage] = useState<ImageInterface | null>(
     null
   );
@@ -46,7 +50,7 @@ function Images() {
 
   return (
     <div className="flex flex-wrap justify-center items-start gap-14 my-6  ">
-      {urlToDisplay?.map((data: ImageInterface, index: number) => {
+      {imagesToDisplay?.map((data: ImageInterface, index: number) => {
         const { webformatURL, tags } = data;
         return (
           <div

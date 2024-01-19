@@ -2,9 +2,10 @@ import React, { useState } from "react";
 
 interface TagCarouselProps {
   tags: string[];
+  onTagSelect: (tag: string) => void;
 }
 
-const TagCarousel: React.FC<TagCarouselProps> = ({ tags }) => {
+const TagCarousel: React.FC<TagCarouselProps> = ({ tags, onTagSelect }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const itemsPerPage: number = 7;
 
@@ -38,6 +39,7 @@ const TagCarousel: React.FC<TagCarouselProps> = ({ tags }) => {
         {visibleTags.map((tag, index) => (
           <span
             key={index}
+            onClick={() => onTagSelect(tag)}
             className="text-neutral-500 text-center text-sm font-medium leading-4 capitalize whitespace-nowrap items-stretch grow justify-center px-14 py-4 rounded border-[1.057px] border-solid border-neutral-300 max-md:px-5 cursor-pointer "
           >
             {tag}
