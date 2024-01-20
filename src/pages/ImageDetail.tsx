@@ -58,16 +58,10 @@ const ImageDetail: FC<ImageDetailProps> = ({ selectedImage, closeModal }) => {
     try {
       const response = await fetch(largeImageURL);
       const blob = await response.blob();
-
-      // Create a data URL from the blob
       const url = URL.createObjectURL(blob);
-
-      // Create a download link
       const link = document.createElement("a");
       link.href = url;
       link.download = `image_${id}.jpg`;
-
-      // Trigger the click event to start the download
       link.click();
     } catch (error) {
       console.error("Error downloading image:", error);
