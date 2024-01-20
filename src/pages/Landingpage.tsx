@@ -2,17 +2,42 @@ import { CiSearch } from "react-icons/ci";
 import { useImageContext } from "../context/useImageContext";
 import LoadingBee from "../assets/loadingAnimation.gif";
 import SearchResults from "./SearchResults";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 
 function Landingpage() {
   const { fetchImages, setSearchInput, searchInput, urlToDisplay, loading } =
     useImageContext();
   const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [randomBg, setRandomBg] = useState<[]>([]);
+
+  const fetchRandomBg = async () => {
+    try {
+      const response = await fetch(
+        "https://pixabay.com/api/?key=41879709-750e226c45d736ce651de13b0"
+      );
+      const data = await response.json();
+      const res = data.hits;
+      const randomObject = res[Math.floor(Math.random() * res.length)];
+      setRandomBg(randomObject.largeImageURL);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  };
+
+  useEffect(() => {
+    fetchRandomBg();
+
+    const intervalId = setInterval(fetchRandomBg, 2 * 60 * 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div
-      className="bg-[url('./assets/home-background.jfif')] w-full h-full bg-no-repeat bg-cover   "
+      className="w-full h-full bg-no-repeat bg-cover  bg-slate-300 "
       style={{
+        backgroundImage: `url(${randomBg})`,
         height: urlToDisplay.length === 0 ? "100vh" : "400px",
         scale: urlToDisplay.length === 0 ? "" : "1",
         backgroundPosition: urlToDisplay.length === 0 ? "bottom" : "center",
@@ -22,7 +47,6 @@ function Landingpage() {
         className="flex flex-col items-center justify-center  pt-[30px] text-white z-10 
       gap-14 sm:gap-11  "
       >
-        {/* first div  */}
         <div className="w-[90%] relative shadow backdrop-blur-[25.034873962402344px] bg-zinc-300 bg-opacity-10 flex justify-between items-center px-5 min-h-[68px] rounded-lg ">
           <h3 className="text-white text-lg font-semibold leading-5 max-w-[91px] ">
             Pixabay-∞
@@ -50,8 +74,7 @@ function Landingpage() {
             </div>
           )}
         </div>
-        {/* first div  */}
-        {/* second div  */}
+
         <div
           className="w-[80%] "
           style={{
@@ -63,8 +86,7 @@ function Landingpage() {
             <h1>Discover over 2,000,000 free Stock Images</h1>
           </h1>
         </div>
-        {/* second div  */}
-        {/* third div  */}
+
         <div className="flex flex-col items-center gap-7 w-[38%] sm:w-[70%] lg:w-[55%] -z-0 ">
           <div className="shadow backdrop-blur-[25.034873962402344px] bg-zinc-300 bg-opacity-10  min-h-[67px] w-full rounded-lg flex items-center px-3  ">
             <CiSearch className="mr-2 border-r border-zinc-300 pr-2 text-[1.8rem]  " />
@@ -97,7 +119,6 @@ function Landingpage() {
             </div>
           )}
         </div>
-        {/* third div  */}
       </div>
       {!loading ? (
         <SearchResults />
