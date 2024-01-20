@@ -27,8 +27,8 @@ const TagCarousel: React.FC<TagCarouselProps> = ({
   const visibleTags = tags.slice(currentIndex, currentIndex + itemsPerPage);
 
   return (
-    <div className=" bg-neutral-100 self-stretch flex w-full flex-col justify-center items-stretch mt-6  py-7 max-md:max-w-full max-md:pl-5">
-      <div className="items-stretch flex gap-2 px-px max-md:max-w-full max-md:flex-wrap">
+    <div className=" bg-neutral-100 self-stretch flex w-full flex-col  justify-center items-stretch mt-6  py-7 max-md:max-w-full max-md:pl-5">
+      <div className=" flex gap-2 px-px  sm:px-4 max-md:max-w-full sm:flex-wrap xl:flex-wrap md:flex-wrap  ">
         <button
           onClick={handlePrev}
           disabled={currentIndex === 0}
