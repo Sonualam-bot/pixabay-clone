@@ -1,8 +1,10 @@
 import { CiSearch } from "react-icons/ci";
 import { useImageContext } from "../context/useImageContext";
+import LoadingBee from "../assets/loadingAnimation.gif";
+import SearchResults from "./SearchResults";
 
 function Landingpage() {
-  const { fetchImages, setSearchInput, searchInput, urlToDisplay } =
+  const { fetchImages, setSearchInput, searchInput, urlToDisplay, loading } =
     useImageContext();
   return (
     <div
@@ -74,12 +76,19 @@ function Landingpage() {
             </div>
           ) : (
             <div className="text-white text-center text-5xl font-bold leading-[87px] ">
-              Results: {searchInput}
+              Results: {searchInput.toLocaleUpperCase()}
             </div>
           )}
         </div>
         {/* third div  */}
       </div>
+      {!loading ? (
+        <SearchResults />
+      ) : (
+        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+          <img src={LoadingBee} alt="Loading..." />
+        </div>
+      )}
     </div>
   );
 }

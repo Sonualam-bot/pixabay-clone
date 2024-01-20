@@ -4,7 +4,6 @@ import "./App.css";
 import Loader from "./pages/Loader";
 
 const Landingpage = lazy(() => import("./pages/Landingpage"));
-const SearchResults = lazy(() => import("./pages/SearchResults"));
 
 function App() {
   return (
@@ -14,7 +13,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Landingpage />} />
           </Routes>
-          <SearchResults />
         </Router>
       </Suspense>
     </div>

@@ -5,6 +5,7 @@ interface ImageContextProps {
   setSearchInput: (input: string) => void;
   searchInput: string;
   urlToDisplay: [];
+  loading: boolean;
 }
 
 interface ImageComponentProp {
@@ -20,6 +21,7 @@ export const ImageContextProvider: React.FC<ImageComponentProp> = ({
 }) => {
   const [urlToDisplay, setUrlToDisplay] = useState<[]>([]);
   const [searchInput, setSearchInput] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const apiKey = "41879709-750e226c45d736ce651de13b0";
 
@@ -31,20 +33,26 @@ export const ImageContextProvider: React.FC<ImageComponentProp> = ({
       if (searchInput.trim() === "") {
         alert("enter something eg. yellow");
       } else {
+        setLoading(true);
         const response = await fetch(url);
         const result = await response.json();
         setUrlToDisplay(result.hits);
+        setLoading(false);
       }
     } catch (error) {
       throw new Error(`${error}`);
     }
   };
 
-  const value = { fetchImages, setSearchInput, searchInput, urlToDisplay };
+  const value = {
+    fetchImages,
+    setSearchInput,
+    searchInput,
+    urlToDisplay,
+    loading,
+  };
 
   return (
     <ImageContext.Provider value={value}>{children}</ImageContext.Provider>
   );
 };
-
-// https://pixabay.com/api/?key=41879709-750e226c45d736ce651de13b0&q=yellow
