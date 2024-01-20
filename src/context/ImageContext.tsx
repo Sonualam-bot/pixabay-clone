@@ -26,7 +26,6 @@ export const ImageContextProvider: React.FC<ImageComponentProp> = ({
   const apiKey = "41879709-750e226c45d736ce651de13b0";
 
   const url: string = `https://pixabay.com/api/?key=${apiKey}&q=${searchInput}`;
-  // const url: string = `https://pixabay.com/api/?key=41879709-750e226c45d736ce651de13b0&q=yellow`;
 
   const fetchImages = async () => {
     try {
