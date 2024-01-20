@@ -39,7 +39,11 @@ function SearchResults() {
     <div className="">
       {urlToDisplay.length > 0 && (
         <div>
-          <TagCarousel tags={uniqueTags} onTagSelect={handleTagSelect} />
+          <TagCarousel
+            tags={uniqueTags}
+            onTagSelect={handleTagSelect}
+            selectedTags={selectedTags}
+          />
           <Images imagesToDisplay={filteredImages} />
         </div>
       )}
