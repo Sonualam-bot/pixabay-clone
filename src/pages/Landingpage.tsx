@@ -33,6 +33,10 @@ function Landingpage() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const backToHomepage = () => {
+    window.location.reload();
+  };
+
   return (
     <div
       className="w-full h-full bg-no-repeat bg-cover  bg-slate-300 "
@@ -48,7 +52,10 @@ function Landingpage() {
       gap-14 sm:gap-11  "
       >
         <div className="w-[90%] relative shadow backdrop-blur-[25.034873962402344px] bg-zinc-300 bg-opacity-10 flex justify-between items-center px-5 min-h-[68px] rounded-lg ">
-          <h3 className="text-white text-lg font-semibold leading-5 max-w-[91px] ">
+          <h3
+            className="text-white text-lg font-semibold leading-5 max-w-[91px] cursor-pointer "
+            onClick={backToHomepage}
+          >
             Pixabay-∞
           </h3>
           <div className="flex items-center justify-center md:gap-5 sm:hidden md:block ">
