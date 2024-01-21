@@ -1,5 +1,4 @@
 import { useState } from "react";
-// import { useImageContext } from "../context/useImageContext";
 import ImageDetail from "./ImageDetail";
 
 export interface ImageInterface {

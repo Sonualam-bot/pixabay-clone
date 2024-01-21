@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Loader from "./pages/Loader";
+import BackToTopButton from "./pages/BackToTopButton";
 
 const Landingpage = lazy(() => import("./pages/Landingpage"));
 
@@ -15,6 +16,7 @@ function App() {
           </Routes>
         </Router>
       </Suspense>
+      <BackToTopButton />
     </div>
   );
 }
